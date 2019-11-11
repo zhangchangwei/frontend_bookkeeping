@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/more/more",
+    "pages/insert/insert",
+    "pages/config/config",
+    "pages/mine/mine"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#007AFF",
+    "borderStyle": "black",
+    "backgroundColor": "#F8F8F8",
+    "midButton": {
+      "iconPath": "static/icon/add.png"
+    },
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "iconPath": "static/icon/main.png",
+        "selectedIconPath": "static/icon/main_s.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/more/more",
+        "iconPath": "static/icon/more.png",
+        "selectedIconPath": "static/icon/more_s.png",
+        "text": "更多"
+      },
+      {
+        "pagePath": "pages/insert/insert",
+        "iconPath": "static/icon/add.png",
+        "selectedIconPath": "static/icon/add_s.png",
+        "text": "记一笔"
+      },
+      {
+        "pagePath": "pages/config/config",
+        "iconPath": "static/icon/shezhi.png",
+        "selectedIconPath": "static/icon/shezhi_s.png",
+        "text": "设置"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/icon/mine.png",
+        "selectedIconPath": "static/icon/mine_s.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
