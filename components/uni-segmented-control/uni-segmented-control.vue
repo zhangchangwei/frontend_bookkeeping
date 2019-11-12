@@ -90,6 +90,7 @@
 		flex: 1;
 		text-align: center;
 		line-height: 60upx;
+		height: 60upx;
 		box-sizing: border-box;
 		border-left: 1px solid #007AFF;
 	}
