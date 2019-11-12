@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "更多",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control"
+  }
 }
