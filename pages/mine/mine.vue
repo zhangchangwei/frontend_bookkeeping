@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<!-- #ifdef MP-WEIXIN -->
+		<button class="" open-type="getUserInfo" @getuserinfo="getUserInfo" withCredentials="true">授权登录</button>
+		<!-- #endif -->
 	</view>
 </template>
 
 <script>
+	var infoCode;
 	export default {
 		data() {
 			return {
@@ -15,10 +15,43 @@
 			}
 		},
 		onLoad() {
+			// #ifdef MP-WEIXIN
+			uni.login({
+				provider:'weixin',
+				success:function(res){
+					console.log(res);
+					infoCode = res.code;
+				}
+			})
+			console.log(this.globel_url);
+			this.user_info.nickName = 'breamer';
+			// #endif
+			
 
 		},
 		methods: {
-
+			getUserInfo: function(res) {
+				if (!res.detail.iv) {
+					uni.showToast({
+						title: "您取消了授权,登录失败",
+						icon: "none"
+					});
+					return false;
+				}
+				console.log(res.detail);
+				//
+				uni.request({
+					url: this.globel_url + 'user/wx/info',
+					method: 'GET',
+					data: {
+						jsCode: infoCode
+					},
+					dataType: 'json',
+					success: (res) => {
+						console.log(res);
+					}
+				});
+			}
 		}
 	}
 </script>

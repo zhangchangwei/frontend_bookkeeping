@@ -88,6 +88,8 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			this.showRing("canvasRing", this.pie);
+			console.log(this.user_info.nickName);
+			
 		},
 		methods: {
 			onClickItem(index) {

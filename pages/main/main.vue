@@ -97,6 +97,41 @@
 			this.selectMonth = month;
 			this.selectDate = `${year}-${month}-${day}`;
 			console.log(date.getDate());
+
+			// #ifdef MP-WEIXIN
+			uni.request({
+				url: this.globel_url + 'book/test',
+				method: 'GET',
+				data: {
+					month: '2019-08',
+					userId: 'abcdefg'
+				},
+				dataType: 'json',
+				success: (res) => {
+					console.log(res);
+				}
+			});
+			console.log(this.globel_url);
+			this.user_info.nickName = 'breamer';
+			// #endif
+
+			// #ifndef MP-WEIXIN
+			uni.request({
+				url: this.globel_url + 'book/test',
+				method: 'GET',
+				data: {
+					month: '2019-08',
+					userId: 'abcdefg'
+				},
+				dataType: 'json',
+				success: (res) => {
+					console.log(res);
+				}
+			});
+			console.log(this.globel_url);
+			this.user_info.nickName = 'breamer';
+
+			// #endif
 		},
 		methods: {
 			bindClick(e) {

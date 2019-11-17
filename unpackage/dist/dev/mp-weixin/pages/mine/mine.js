@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -130,8 +130,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-var _default =
+
+var infoCode;var _default =
 {
   data: function data() {
     return {
@@ -140,8 +140,43 @@ var _default =
   },
   onLoad: function onLoad() {
 
+    uni.login({
+      provider: 'weixin',
+      success: function success(res) {
+        console.log(res);
+        infoCode = res.code;
+      } });
+
+    console.log(this.globel_url);
+    this.user_info.nickName = 'breamer';
+
+
+
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    getUserInfo: function getUserInfo(res) {
+      if (!res.detail.iv) {
+        uni.showToast({
+          title: "您取消了授权,登录失败",
+          icon: "none" });
+
+        return false;
+      }
+      console.log(res.detail);
+      //
+      uni.request({
+        url: this.globel_url + 'user/wx/info',
+        method: 'GET',
+        data: {
+          jsCode: infoCode },
+
+        dataType: 'json',
+        success: function success(res) {
+          console.log(res);
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
