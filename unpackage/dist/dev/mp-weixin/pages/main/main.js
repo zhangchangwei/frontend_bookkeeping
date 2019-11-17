@@ -230,6 +230,41 @@ __webpack_require__.r(__webpack_exports__);
     this.selectMonth = month;
     this.selectDate = "".concat(year, "-").concat(month, "-").concat(day);
     console.log(date.getDate());
+
+
+    uni.request({
+      url: this.globel_url + 'book/test',
+      method: 'GET',
+      data: {
+        month: '2019-08',
+        userId: 'abcdefg' },
+
+      dataType: 'json',
+      success: function success(res) {
+        console.log(res);
+      } });
+
+    console.log(this.globel_url);
+    this.user_info.nickName = 'breamer';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   },
   methods: {
     bindClick: function bindClick(e) {

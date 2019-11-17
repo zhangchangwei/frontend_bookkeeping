@@ -7,8 +7,8 @@
 		"urlCheck": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
-	"appid": "touristappid",
+	"libVersion": "2.9.2",
+	"appid": "wx6553d8ca833c75af",
 	"projectname": "bookkeeping",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

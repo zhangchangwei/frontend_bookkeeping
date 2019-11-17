@@ -14,6 +14,14 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function 
 _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
+_vue.default.prototype.globel_url = 'http://127.0.0.1:8087/book/';
+_vue.default.prototype.user_info = {
+  userName: null,
+  userId: null,
+  nickName: null,
+  face: null,
+  openId: null };
+
 
 var app = new _vue.default(_objectSpread({},
 _App.default));
