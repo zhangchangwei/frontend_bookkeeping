@@ -7,9 +7,9 @@
 			}
 		},
 		{
-			"path": "pages/more/more",
+			"path": "pages/advance/advance",
 			"style": {
-				"navigationBarTitleText": "更多"
+				"navigationBarTitleText": "高级"
 			}
 		},
 		//#ifdef MP-WEIXIN
@@ -21,9 +21,9 @@
 		},
 		//#endif
 		{
-			"path": "pages/config/config",
+			"path": "pages/more/more",
 			"style": {
-				"navigationBarTitleText": "设置"
+				"navigationBarTitleText": "报表"
 			}
 		},
 		{
@@ -54,10 +54,10 @@
                 "text": "主页"
             },
             {
-                "pagePath": "pages/more/more",
+                "pagePath": "pages/advance/advance",
                 "iconPath": "static/icon/more.png",
                 "selectedIconPath": "static/icon/more_s.png",
-                "text": "更多"
+                "text": "高级"
             },
 			 //#ifdef MP-WEIXIN
 			{
@@ -68,11 +68,12 @@
 			},
 			//#endif
 			{
-                "pagePath": "pages/config/config",
-                "iconPath": "static/icon/shezhi.png",
-                "selectedIconPath": "static/icon/shezhi_s.png",
-                "text": "设置"
-            }, {
+			    "pagePath": "pages/more/more",
+			    "iconPath": "static/icon/tab.png",
+			    "selectedIconPath": "static/icon/tab_s.png",
+			    "text": "报表"
+			}, 
+			{
                 "pagePath": "pages/mine/mine",
                 "iconPath": "static/icon/mine.png",
                 "selectedIconPath": "static/icon/mine_s.png",
