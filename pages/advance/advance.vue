@@ -13,14 +13,39 @@
 		></w-picker>
 		
 		<view class="result">选择结果：{{resultInfo.result}}</view>
+		<view class="box">
+		            <view class="title">默认效果</view>
+		            <t-table @change="change">
+		                <t-tr>
+		                    <t-th>序号</t-th>
+		                    <t-th>姓名</t-th>
+		                    <t-th>年龄</t-th>
+		                    <t-th>爱好</t-th>
+		                </t-tr>
+		                <t-tr v-for="item in tableList" :key="item.id">
+		                    <t-td>{{ item.id + 1 }}</t-td>
+		                    <t-td>{{ item.name }}</t-td>
+		                    <t-td>{{ item.age }}</t-td>
+		                    <t-td>{{ item.hobby }}</t-td>
+		                </t-tr>
+		            </t-table>
+		        </view>
 	</view>
 </template>
 
 <script>
 	import wPicker from "@/components/w-picker/w-picker.vue";
+	import tTable from '@/components/t-table/t-table.vue';
+	import tTh from '@/components/t-table/t-th.vue';
+	import tTr from '@/components/t-table/t-tr.vue';
+	import tTd from '@/components/t-table/t-td.vue';
 	export default {
 		components:{
-			wPicker
+			wPicker,
+			tTable,
+			tTh,
+			tTr,
+			tTd
 		},
 		data() {
 			return {
@@ -81,7 +106,32 @@
 							value:"20102"
 						}]
 					}]
-				}]
+				}],
+				tableList: [{
+								id: 0,
+								name: '张三',
+								age: '19',
+								hobby: '游泳'
+							},
+							{
+								id: 1,
+								name: '李四',
+								age: '21',
+								hobby: '绘画'
+							},
+							{
+								id: 2,
+								name: '王二',
+								age: '29',
+								hobby: '滑板'
+							},
+							{
+								id: 3,
+								name: '码字',
+								age: '20',
+								hobby: '蹦极'
+							}
+						]
 			}
 		},
 		computed:{
