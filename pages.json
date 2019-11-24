@@ -5,7 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "主页"
 			}
-		},
+		}, {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        },
 		{
 			"path": "pages/advance/advance",
 			"style": {
@@ -32,7 +37,7 @@
 				"navigationBarTitleText": "我的"
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

@@ -11,23 +11,26 @@
 			</view>
 			<view class="top-block-mid">
 				<view class="top-block-text-top">本月支出(元)</view>
-				<view class="top-block-text">2000000</view>
+				<view class="top-block-text">{{sumMonthCoast}}</view>
 			</view>
 			<view class="top-block-right">
 				<text class="top-block-text-top">今日支出(元)</text>
-				<text class="top-block-text">99.9</text>
+				<text class="top-block-text">{{sumTodayCoast}}</text>
 			</view>
 		</view>
 		<view class="main-body">
 			<view v-if="listData.length > 0" class="block-demo">
 				<view v-for="(item,index) in listData" :key="index" class="block-item">
-					<view ref="test" class="example-title">{{item.time}}</view>
+					<view ref="test" class="example-title">{{item.bookDate}}</view>
 					<view class="uni-list">
-						<uni-swipe-action v-for="(body,i) in item.data" :key="i" :options="options1" @click="bindClick">
-							<uni-list-item :show-arrow="false" :title="body.text" />
+						<uni-swipe-action v-for="(body,i) in item.keepingBooks" :key="i" :options="deleteOptionName" @click="bindClick(body.id)">
+							<uni-list-item :show-arrow="false" :title="body.remark" />
 						</uni-swipe-action>
 					</view>
 				</view>
+			</view>
+			<view v-if="listData.length < 1" class="block-demo">
+				暂无数据
 			</view>
 		</view>
 	</view>
@@ -37,6 +40,7 @@
 	import uniSwipeAction from '@/components/uni-swipe-action/uni-swipe-action.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	var token;
 	export default {
 		components: {
 			uniSwipeAction,
@@ -48,98 +52,109 @@
 				selectYear: '',
 				selectMonth: '',
 				selectDate: '',
+				isFirstLogin: uni.getStorageSync('isFirstLogin'),
 				listData: [{
-					time: '2019-01-02',
-					data: [{
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}]
-				}, {
-					time: '2019-01-03',
-					data: [{
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}]
-				}, {
-					time: '2019-01-04',
-					data: [{
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}, {
-						text: '取消置顶'
-					}]
+					bookDate: '2019-01-02',
+					keepingBooks: [{
+						bookCoast: "10.20",
+						bookTag: "1",
+						id: 1,
+						remark: "花钱",
+						tagIcon: "/life",
+						tagName: "生活",
+					}],
+					month: "2019-08",
+					monthDate: "10日",
+					sumCoast: "33.20",
+					userId: "1316659983810592",
+					weekDate: "星期六"
 				}],
-				options1: [{
-					text: '取消置顶'
+				deleteOptionName: [{
+					text: '删除'
 				}],
-				title: 'Hello'
+				sumMonthCoast: 0,
+				sumTodayCoast: 0
 			}
 		},
 		onLoad() {
+			// uni.clearStorageSync();
 			let date = new Date();
 			let year = date.getFullYear();
 			let month = date.getMonth() + 1;
 			let day = date.getDate();
+			let paramMonth = month < 10 ? "0" + month : month
 			this.selectYear = year;
 			this.selectMonth = month;
-			this.selectDate = `${year}-${month}-${day}`;
-			console.log(date.getDate());
+			this.selectDate = `${year}-${paramMonth}`;
+			console.log(this.selectDate)
 
-			// #ifdef MP-WEIXIN
-			uni.request({
-				url: this.globel_url + 'book/test',
-				method: 'GET',
-				data: {
-					month: '2019-08',
-					userId: 'abcdefg'
-				},
-				dataType: 'json',
-				success: (res) => {
-					console.log(res);
-				}
-			});
-			console.log(this.globel_url);
-			this.user_info.nickName = 'breamer';
-			// #endif
+			if (uni.getStorageSync('isFirstLogin') === '') {
+				this.isFirstLogin = true;
+			}
 
-			// #ifndef MP-WEIXIN
-			uni.request({
-				url: this.globel_url + 'book/test',
-				method: 'GET',
-				data: {
-					month: '2019-08',
-					userId: 'abcdefg'
-				},
-				dataType: 'json',
-				success: (res) => {
-					console.log(res);
-				}
-			});
-			console.log(this.globel_url);
-			this.user_info.nickName = 'breamer';
+			if (this.isFirstLogin) {
+				uni.showModal({
+					title: '未授权登录',
+					content: '您未授权登录，需要登录后才能继续',
+					showCancel: false,
+					success: (res) => {
+						if (res.confirm) {
+							uni.reLaunch({
+								url: '../login/login'
+							});
+						}
+					}
+				});
+			} else {
+				this.getBookKeepingData(this.selectDate);
+			}
 
-			// #endif
+		},
+		onTabItemTap() {
+			console.log('allllllllllllllllllllllllllll');
 		},
 		methods: {
 			bindClick(e) {
-				console.log(e)
-				uni.showToast({
-					title: `点击了${e.content.text}按钮`,
-					icon: 'none'
-				})
+				console.log(e);
+			},
+			getBookKeepingData(month) {
+				token = uni.getStorageSync("token")
+				// #ifdef MP-WEIXIN
+				uni.request({
+					url: this.globel_url + 'book/test',
+					method: 'GET',
+					data: {
+						month: month
+					},
+					dataType: 'json',
+					header: {
+						token: token
+					},
+					success: (res) => {
+						console.log(res);
+						this.listData = res.data.data;
+					}
+				});
+				// #endif
+
+				// #ifndef MP-WEIXIN
+				uni.request({
+					url: this.globel_url + 'book/test',
+					method: 'GET',
+					data: {
+						month: month
+					},
+					dataType: 'json',
+					header: {
+						token: token
+					},
+					success: (res) => {
+						console.log(res);
+						this.listData = res.data.data;
+					}
+				});
+				// #endif
+
 			},
 			bindDateChange(e) {
 				console.log(e);
@@ -148,6 +163,7 @@
 				var dateStrs = this.selectDate.split("-");
 				this.selectYear = parseInt(dateStrs[0], 10);
 				this.selectMonth = parseInt(dateStrs[1], 10);
+				this.getBookKeepingData(this.selectDate);
 			}
 		}
 	}
